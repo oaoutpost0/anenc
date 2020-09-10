@@ -13,11 +13,11 @@ anEnc is an encryption library includes:
     - Base 64
     - HEX
 
-__Note:__ Any function or method with prefix `Must` will not return an error.
-Instead it will take a fallback values as addition to its necessary parameter(s).
+__Note:__ Any function or method with a prefix `Must` will not return an error.
+Instead it will take a fallback values as addition to its necessary parameter(s).  
 _(eg: `func MustHexDec(b, fallback []byte) []byte` vs `func HexDec(b []byte) ([]byte, error)`)_
 
-__Note:__ Any function or method with suffix `i` will take either `io.Reader` or `io.Writer` interface.
+__Note:__ Any function or method with a suffix `i` will take either `io.Reader` or `io.Writer` interface.  
 _(eg: `func SHA256i(ior io.Reader) ([]byte, error)`)_
 
 
@@ -36,8 +36,8 @@ What needs to be filled?
 
 - Encrypt:
     - `PEMPublic` + `DataPlain` = `DataEncrypted`
-    - or `PEMPrivate` + `DataPlain` = `DataEncrypted`
-        _(this is because you can create a public key from the private key)
+    - or `PEMPrivate` + `DataPlain` = `DataEncrypted`  
+        _(this is because you can create a public key from the private key)_
 - Decrypt:
     - `PEMPrivate` + `DataEncrypted` = `DataPlain`
 
