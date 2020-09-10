@@ -81,7 +81,7 @@ func (a *AES) Encrypt(inp []byte) ([]byte, error) {
 	copy(data[a.blockSize:], inp)
 
 	key, iv := a.getKeyAndIV(a.salt[:])
-	if enc, err := encrypt(key, iv, data); err != nil {
+	if enc, err := a.encrypt(key, iv, data); err != nil {
 		return nil, err
 	} else {
 		return enc, nil
