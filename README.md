@@ -4,7 +4,7 @@
 Written by Gon Yi. <https://gonyyi.com/copyright.txt>
 
 
-anEnc is an encryption library includes:
+anEnc is an encryption library which includes:
 
 - RSA
 - AES-256 CBC _(compatible with OpenSSL)_
@@ -13,8 +13,8 @@ anEnc is an encryption library includes:
     - Base 64
     - HEX
 
-__Note:__ Any function or method with prefix `Must` will not return an error.
-Instead it will take a fallback values as addition to its necessary parameter(s).
+__Note:__ Any function or method with the prefix `Must` will not return an error.
+Instead it will take a fallback value in addition to its necessary parameter(s).
 _(eg: `func MustHexDec(b, fallback []byte) []byte` vs `func HexDec(b []byte) ([]byte, error)`)_
 
 __Note:__ Any function or method with suffix `i` will take either `io.Reader` or `io.Writer` interface.
@@ -25,7 +25,7 @@ _(eg: `func SHA256i(ior io.Reader) ([]byte, error)`)_
 
 ## RSA
 
-There are 4 key byte slice variables in RSA struct.
+There are 4 key byte slice variables in an RSA struct.
 
 - `PEMPrivate`
 - `PEMPublic`
@@ -44,8 +44,8 @@ What needs to be filled?
 
 ### Usage: Encrypt
 
-For encryption, public key is needed. However, this can be generated from private key.
-When rsa.Encrypt() runs, it will check if public key is available, if not, it will generate
+For encryption, the public key is needed. However, this can be generated from the corresponding private key.
+When rsa.Encrypt() runs, it will check if the public key is available, if not, it will generate
 a public key to encrypt.
 
 ```go
@@ -67,7 +67,7 @@ if err := rsa.Encrypt(); err != nil {
 
 ### Usage: Decrypt
 
-When decrypt, private key is needed along with encrypted data.
+When decrypting, the private key is needed along with the encrypted data.
 
 ```go
 rsa := anenc.NewRSA()
@@ -91,7 +91,7 @@ if err := rsa.Decrypt(); err != nil {
 
 ## AES
 
-OpenSSL compatible with AES 256 CBC algorithm and can be tested with OpenSSL as below.
+OpenSSL is compatible with the AES 256 CBC algorithm; it can be tested with OpenSSL as below.
 
 
 ### Usage: Encrypt
