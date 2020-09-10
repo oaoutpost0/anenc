@@ -1,9 +1,59 @@
-package anenc
+package anenc_test
 
 import (
+	"bytes"
 	"encoding/base64"
+	"github.com/orangenumber/anenc"
 	"testing"
 )
+
+func TestStds(t *testing.T) {
+	rawPasswd := []byte("123")
+	rawData := []byte("awesome worked!")
+
+	// Encode
+	b, err := anenc.Encrypt(rawPasswd, rawData)
+	if err != nil {
+		t.Error(err.Error())
+	}
+	encodedStr := base64.StdEncoding.EncodeToString(b)
+	// println(encodedStr)
+
+	// Decode
+	b, err = base64.StdEncoding.DecodeString(encodedStr)
+	if err != nil {
+		t.Error(err.Error())
+	}
+	b, err = anenc.Decrypt(rawPasswd, b)
+
+	if !bytes.Equal(rawData, b) {
+		t.Fail()
+	}
+}
+
+func TestStds_withBase64Func(t *testing.T) {
+	rawPasswd := []byte("123")
+	rawData := []byte("awesome worked!")
+
+	// Encode
+	b, err := anenc.Encrypt(rawPasswd, rawData)
+	if err != nil {
+		t.Error(err.Error())
+	}
+	encodedStr := anenc.Base64Enc(b)
+	// println(encodedStr)
+
+	// Decode
+	b, err = anenc.Base64Dec(encodedStr)
+	if err != nil {
+		t.Error(err.Error())
+	}
+	b, err = anenc.Decrypt(rawPasswd, b)
+
+	if !bytes.Equal(rawData, b) {
+		t.Fail()
+	}
+}
 
 func TestAES(t *testing.T) {
 	testData := [][]string{
@@ -12,7 +62,7 @@ func TestAES(t *testing.T) {
 		[]string{"base64.StdEncoding.Encode", "gonyi1234567890123456789012345678901234567890gonyi1234567890123456789012345678901234567890"},
 	}
 
-	a := NewAES(nil)
+	a := anenc.NewAES(nil)
 	for _, v := range testData {
 		// v[0] = pwd, v[1] = data
 
@@ -25,13 +75,14 @@ func TestAES(t *testing.T) {
 			println(err.Error())
 			t.Fatalf("1: %s", err)
 		}
-		b64_encoded := base64.StdEncoding.EncodeToString(b)
-
+		b64_encoded := anenc.Base64Enc(b)
+		// b64_encoded := base64.StdEncoding.EncodeToString(b)
 
 		// =============
 		// DECODE
 		// =============
-		b64_enc_decoded, err := base64.StdEncoding.DecodeString(b64_encoded)
+		b64_enc_decoded, err := anenc.Base64Dec(b64_encoded)
+		// b64_enc_decoded, err := base64.StdEncoding.DecodeString(b64_encoded)
 		if err != nil {
 			println(err.Error())
 			t.Fatalf("2: %s", err)
